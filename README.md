@@ -6,7 +6,7 @@ It features a real-time web-based GUI, built-in proxy testing, and is designed f
 ---
 
 ## 📋 Proxy Lists
-- [http.txt](https://raw.githubusercontent.com/i-am-unbekannt/BLITZPROXY/refs/heads/main/out-files/http.txt): Contains the latest HTTP proxies.
+- [http.txt](https://raw.githubusercontent.com/i-am-unbekannt/BLITZPROXY/refs/heads/main/out-files/http.txt): Contains the latest HTTP/S proxies.
 - [socks4.txt](https://raw.githubusercontent.com/i-am-unbekannt/BLITZPROXY/refs/heads/main/out-files/socks4.txt): Contains the latest SOCKS4 proxies.
 - [socks5.txt](https://raw.githubusercontent.com/i-am-unbekannt/BLITZPROXY/refs/heads/main/out-files/socks5.txt): Contains the latest SOCKS5 proxies.
 
