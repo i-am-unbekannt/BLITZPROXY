@@ -1,4 +1,4 @@
-# ϟ BlitzProxy
+# == ϟ BlitzProxy ϟ ==
 
 **BlitzProxy provides regularly updated free proxy lists** – automatically refreshed every 2 days – including HTTP/S, SOCKS4, and SOCKS5 proxies.  
 It features a real-time web-based GUI, built-in proxy testing, and is designed for easy deployment via Docker.
