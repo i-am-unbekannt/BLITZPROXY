@@ -1,7 +1,14 @@
-# ⚡ BlitzProxy
+# ϟ BlitzProxy
 
-> **BlitzProxy provides regularly updated free proxy lists** – automatically refreshed every 2 days – including HTTP/S, SOCKS4, and SOCKS5 proxies.  
-> It features a real-time web-based GUI, built-in proxy testing, and is designed for easy deployment via Docker.
+**BlitzProxy provides regularly updated free proxy lists** – automatically refreshed every 2 days – including HTTP/S, SOCKS4, and SOCKS5 proxies.  
+It features a real-time web-based GUI, built-in proxy testing, and is designed for easy deployment via Docker.
+
+---
+
+## 📋 Proxy Lists
+- [http.txt](https://raw.githubusercontent.com/i-am-unbekannt/BLITZPROXY/refs/heads/main/out-files/http.txt): Contains the latest HTTP proxies.
+- [socks4.txt](https://raw.githubusercontent.com/i-am-unbekannt/BLITZPROXY/refs/heads/main/out-files/socks4.txt): Contains the latest SOCKS4 proxies.
+- [socks5.txt](https://raw.githubusercontent.com/i-am-unbekannt/BLITZPROXY/refs/heads/main/out-files/socks5.txt): Contains the latest SOCKS5 proxies.
 
 ---
 
@@ -38,3 +45,6 @@ cd BLITZPROXY
 docker-compose build
 docker-compose up -d
 ```
+
+BlitzProxy includes a file called `ProxyURL.json` which contains the raw source URLs used to scrape proxies.
+You can easily add more URLs to this file to expand the scraping pool and improve proxy list coverage.
