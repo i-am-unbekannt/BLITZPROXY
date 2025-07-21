@@ -1,0 +1,190 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #212121;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.sidebar {
+  width: 300px;
+  background-color: #101112;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.sidebar-text {
+  color: white;
+  margin-top: -70px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.img-holder {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.img-holder img {
+  width: 80%;
+  object-fit: cover;
+  margin-top: -100px;
+}
+
+.main {
+  flex-grow: 1;
+  background-color: #212121;
+}
+
+.sidebar-bottom-link {
+  margin-top: auto;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding-top: 20px;
+  transition: color 0.3s;
+}
+
+.sidebar-bottom-link:hover {
+  color: #b60802;
+}
+
+.headline {
+  color: #fff;
+  font-size: 24px;
+  margin: 20px;
+}
+
+/* Layout Wrapper for File + Terminal Side-by-Side */
+.section-wrapper {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  height: calc(100% - 80px); /* adjust to leave space for headline */
+  min-height: 600px;
+}
+
+/* File + Terminal Box Container */
+.file-section,
+.terminal-section {
+  background: #1e1e1e;
+  border: 1px solid #444;
+  padding: 15px;
+  border-radius: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* File Dropdown */
+.file-select select {
+  background: #2c2c2c;
+  color: white;
+  border: 1px solid #444;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* File Content Viewer */
+.file-content {
+  flex-grow: 1;
+  margin-top: 10px;
+  background-color: #111;
+  color: #eee;
+  padding: 10px;
+  white-space: pre-wrap;
+  border: 1px solid #444;
+  font-size: 14px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* Download Button */
+.download-wrapper {
+  margin-top: 10px;
+}
+
+#downloadBtn {
+  background: #2e7d32;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+#downloadBtn:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+#downloadBtn:hover:not(:disabled) {
+  background: #388e3c;
+}
+
+/* Terminal Box */
+.terminal-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #2c2c2c;
+  border-radius: 10px;
+  border: 1px solid #444;
+}
+
+.controls button {
+  background: #cc0000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.controls button:hover {
+  background: #ff1e45;
+}
+
+.terminal-container {
+  flex-grow: 1;
+  background: #000;
+  margin-top: 10px;
+  border: 1px solid #444;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* Optional: Responsive behavior on smaller screens */
+@media (max-width: 1000px) {
+  .section-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+}

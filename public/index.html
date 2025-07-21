@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BLITZPROXY v1.0 – Operation Blitz</title>
+  <link rel="stylesheet" href="xterm.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="xterm.js"></script>
+  <script src="xterm-addon-fit.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="img-holder">
+        <img src="logo-U-white.png" alt="U Logo White"/>
+      </div>
+      <p class="sidebar-text">== ϟ BLITZPROXY v1.0 ϟ ==<br>Operation Blitz</p>
+      <a href="https://github.com/i-am-unbekannt/BLITZPROXY" class="sidebar-bottom-link">Build by @i-am-unbekannt</a>
+    </div>
+
+    <div class="main">
+      <h1 class="headline">Welcome to the <u>BLITZPROXY</u> GUI</h1>
+
+      <div class="section-wrapper">
+        <div class="file-section">
+          <div class="file-select">
+            <select id="fileDropdown">
+              <option>– Select a file –</option>
+            </select>
+          </div>
+          <pre id="fileContent" class="file-content"></pre>
+          <div class="download-wrapper">
+            <button id="downloadBtn" disabled>Download File</button>
+          </div>
+        </div>
+
+        <div class="terminal-section">
+          <div class="controls">
+            <button id="startBtn">Start</button>
+            <button id="stopBtn">Stop</button>
+          </div>
+          <div id="terminal" class="terminal-container"></div>
+        </div>
+      </div>
+
+      <script>
+        // === Terminal Setup
+        const socket = io({ transports: ['websocket'] });
+        const term = new Terminal({ convertEol: true });
+        const fitAddon = new FitAddon.FitAddon();
+        term.loadAddon(fitAddon);
+        term.open(document.getElementById('terminal'));
+        setTimeout(() => fitAddon.fit(), 0);
+        window.addEventListener("resize", () => fitAddon.fit());
+
+        document.getElementById("startBtn").addEventListener("click", () => {
+          term.clear();
+          socket.emit("start-script");
+          console.log("[UI] Start button clicked");
+        });
+
+        document.getElementById("stopBtn").addEventListener("click", () => {
+          socket.emit("stop-script");
+          term.clear();
+          console.log("[UI] Stop button clicked");
+        });
+
+        socket.on("output", data => term.write(data));
+        socket.on("full-buffer", data => term.write(data));
+
+        // === Disable download button
+        const downloadBtn = document.getElementById("downloadBtn");
+        downloadBtn.disabled = true;
+
+        // === Load available .txt files from folders
+        fetch("/api/files")
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to load file list.");
+            return res.json();
+          })
+          .then(data => {
+            const dropdown = document.getElementById("fileDropdown");
+            dropdown.innerHTML = '<option disabled selected>– Select a file –</option>';
+            for (const folder in data) {
+              const group = document.createElement("optgroup");
+              group.label = folder;
+              data[folder].forEach(file => {
+                const option = document.createElement("option");
+                option.value = `${folder}/${file}`;
+                option.textContent = `${folder}/${file}`;
+                group.appendChild(option);
+              });
+              dropdown.appendChild(group);
+            }
+            console.log("[API] File list loaded successfully");
+          })
+          .catch(err => {
+            console.error("[ERROR] Failed to fetch file list:", err);
+            alert("Error loading file list. Check console for details.");
+          });
+
+        // === Load content of selected file + enable download
+        document.getElementById("fileDropdown").addEventListener("change", (e) => {
+          const [folder, filename] = e.target.value.split("/");
+          fetch(`/api/file?folder=${folder}&filename=${filename}`)
+            .then(res => {
+              if (!res.ok) throw new Error("Failed to load file content.");
+              return res.text();
+            })
+            .then(content => {
+              document.getElementById("fileContent").textContent = content;
+
+              downloadBtn.disabled = false;
+              downloadBtn.onclick = () => {
+                const blob = new Blob([content], { type: "text/plain" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+                console.log(`[DOWNLOAD] File "${filename}" downloaded`);
+              };
+
+              console.log(`[UI] Loaded content of ${folder}/${filename}`);
+            })
+            .catch(err => {
+              console.error("[ERROR] Failed to load file content:", err);
+              alert("Error displaying file content. Check console for details.");
+            });
+        });
+      </script>
+
+    </div>
+  </div>
+</body>
+</html>
