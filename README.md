@@ -33,6 +33,8 @@ Basic HTTP Auth is included (`admin:blitzproxy` by default – override in `serv
 ### Build and run:
 
 ```bash
+git clone https://github.com/i-am-unbekannt/BLITZPROXY
+cd BLITZPROXY
 docker-compose build
 docker-compose up -d
 ```
