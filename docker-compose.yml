@@ -1,0 +1,12 @@
+version: '3'
+services:
+  blitzproxy:
+    container_name: blitzproxy
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - ./out-files:/app/out-files
+      - ./raw-files:/app/raw-files
+    restart: unless-stopped
