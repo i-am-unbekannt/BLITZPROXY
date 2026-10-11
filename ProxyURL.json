@@ -82,5 +82,11 @@
       "https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/socks5.txt",
       "https://raw.githubusercontent.com/zevtyardt/proxy-list/main/socks5.txt"
     ]
+  },
+
+  "all": {
+    "urls": [
+      "https://rcloak.com/api/proxies/raw?protocol=all"
+    ]
   }
 }
